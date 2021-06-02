@@ -122,9 +122,9 @@ const LivingTicket = () => {
     border: "1px red solid",
   };
   const [percentage, setPercentage] = useState({
-    value: parseFloat(0.0),
-    min: parseFloat(timeSlots.startTime),
-    max: parseFloat(timeSlots.endTime),
+    value: 0,
+    min: timeSlots.startTime,
+    max: timeSlots.endTime,
   });
   const canvas = useRef(null);
 
@@ -135,7 +135,7 @@ const LivingTicket = () => {
         //percentage.value += (1.0 / 30.0);
         setPercentage((percentage) => {
           // original was 1.0 / 30.0 for the percentage.value
-          return { ...percentage, value: (percentage.value += 20) };
+          return { ...percentage, value: (percentage.value += 5) };
         });
         render(ctx, percentage);
       } else {
