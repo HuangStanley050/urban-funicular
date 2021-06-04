@@ -41,7 +41,7 @@ const LivingTicket = () => {
   const fps = 60 / 30;
 
   const canvas = useRef(null);
-  const stopTime = 229;
+  const stopTime = 33;
   useEffect(() => {
     const ctx = canvas.current.getContext("2d");
     let interval = setInterval(() => {
