@@ -1,27 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
-function normalizeValueToRange(
-  value,
-  rangeMin,
-  rangeMax,
-  newRangeMin,
-  newRangeMax
-) {
-  //if (rangeMax - rangeMin != 0) {
-  return parseFloat(
-    ((value - rangeMin) / (rangeMax - rangeMin)) * (newRangeMax - newRangeMin) +
-      newRangeMin
-  );
-  //} return parseFloat((newRangeMax - newRangeMin) + newRangeMin);
-}
-
-function findEventEndTime(currentIndex, timeSlots) {
-  // if we have not hit the last element of the events object
-  if (timeSlots.events.length > currentIndex + 1) {
-    return timeSlots.events[currentIndex + 1].startTime;
-  }
-  return parseFloat(timeSlots.endTime);
-}
+import { getStartRange, findPercentageToStop, render } from "./Helpers";
 
 const LivingTicket = () => {
   const wrapper = {
@@ -54,76 +32,14 @@ const LivingTicket = () => {
     ],
   };
 
-  const radius = 140;
-  const circum = 2 * Math.PI * radius;
-  const lineWidth = 12;
-  const gap = 0;
-  const START_RADIAN = parseFloat(-0.2);
-  const END_RADIAN = parseFloat(1.2);
-  const fps = 60 / 30;
-
   const [percentage, setPercentage] = useState({
     value: 0,
     min: timeSlots.startTime,
     max: timeSlots.endTime,
   });
-  const render = (ctx, percentage) => {
-    var progress = normalizeValueToRange(
-      percentage.value,
-      percentage.min,
-      percentage.max,
-      START_RADIAN,
-      END_RADIAN
-    );
-    ctx.clearRect(0, 0, 300, 300); // clear previous drawn content
-    ctx.setTransform(1, 0, 0, 1, 150, 150); // translate to center
-    ctx.rotate(-Math.PI); // rotate -90° so 0° is up
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, START_RADIAN * Math.PI, END_RADIAN * Math.PI); // circle from angle x t
-    ctx.lineWidth = lineWidth + 8; // line width
-    ctx.strokeStyle = "#9ac"; // base color
-    ctx.stroke(); // render it
-    ctx.lineWidth = lineWidth;
-    console.log("current progress", progress);
-    timeSlots.events.forEach((value, index) => {
-      const startSection = normalizeValueToRange(
-        value.startTime,
-        percentage.min,
-        percentage.max,
-        START_RADIAN,
-        END_RADIAN
-      );
-      console.log(`start section: ${value.eventName}`, startSection);
-      // if progress is less than the start of a new section then dont draw it
-      if (progress > startSection) {
-        ctx.beginPath();
-        const sectionEndTime = findEventEndTime(index, timeSlots);
-        const sectionEndNorm = normalizeValueToRange(
-          sectionEndTime,
-          percentage.min,
-          percentage.max,
-          START_RADIAN,
-          END_RADIAN
-        );
-        console.log(`end section: ${value.eventName}`, sectionEndNorm);
-        if (progress >= sectionEndNorm) {
-          ctx.arc(
-            0,
-            0,
-            radius,
-            Math.PI * startSection,
-            Math.PI * sectionEndNorm
-          );
-        } else {
-          ctx.arc(0, 0, radius, Math.PI * startSection, Math.PI * progress);
-        }
-        ctx.strokeStyle = value.color;
-        ctx.stroke();
-        ctx.closePath();
-      }
-    });
-    ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transforms
-  };
+
+  const fps = 60 / 30;
+
   const canvas = useRef(null);
   const stopTime = 229;
   useEffect(() => {
@@ -140,7 +56,7 @@ const LivingTicket = () => {
           // original was 1.0 / 30.0 for the percentage.value
           return { ...percentage, value: (percentage.value += 1) };
         });
-        render(ctx, percentage);
+        render(ctx, percentage, timeSlots);
       } else {
         clearInterval(interval);
       }
