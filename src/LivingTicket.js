@@ -46,6 +46,7 @@ const LivingTicket = () => {
   const fps = 60 / 30;
 
   const canvas = useRef(null);
+  const testRef = useRef(0);
   const stopTime = 330;
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const LivingTicket = () => {
     }
     console.log("running on mount");
     getSessionInfo();
+    testRef.current = 300;
   }, []);
 
   useEffect(() => {

@@ -14,7 +14,7 @@ const eventTimes = {
 
 export const fakeAPI = () => {
   return new Promise((resolve, reject) => {
-    setTimeout(resolve("hello from a fake api call"), 200);
+    setTimeout(resolve(eventTimes), 200);
   });
 };
 
