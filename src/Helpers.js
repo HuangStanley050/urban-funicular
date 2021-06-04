@@ -12,6 +12,12 @@ const eventTimes = {
   movieEnd: new Date("2021/06/04 12:00"),
 };
 
+export const fakeAPI = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve("hello from a fake api call"), 200);
+  });
+};
+
 export const getStartRange = (eventTimes, currentTime, sectionDegrees) => {
   // get which section we should start from
 
@@ -140,7 +146,7 @@ export const render = (ctx, percentage, timeSlots) => {
   ctx.strokeStyle = "#9ac"; // base color
   ctx.stroke(); // render it
   ctx.lineWidth = lineWidth;
-  console.log("current progress", progress);
+  //console.log("current progress", progress);
   timeSlots.events.forEach((value, index) => {
     const startSection = normalizeValueToRange(
       value.startTime,
@@ -149,7 +155,7 @@ export const render = (ctx, percentage, timeSlots) => {
       START_RADIAN,
       END_RADIAN
     );
-    console.log(`start section: ${value.eventName}`, startSection);
+    //console.log(`start section: ${value.eventName}`, startSection);
     // if progress is less than the start of a new section then dont draw it
     if (progress > startSection) {
       ctx.beginPath();
@@ -161,7 +167,7 @@ export const render = (ctx, percentage, timeSlots) => {
         START_RADIAN,
         END_RADIAN
       );
-      console.log(`end section: ${value.eventName}`, sectionEndNorm);
+      //console.log(`end section: ${value.eventName}`, sectionEndNorm);
       if (progress >= sectionEndNorm) {
         ctx.arc(0, 0, radius, Math.PI * startSection, Math.PI * sectionEndNorm);
       } else {

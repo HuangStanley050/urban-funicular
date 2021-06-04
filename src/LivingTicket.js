@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getStartRange, findPercentageToStop, render } from "./Helpers";
+import {
+  getStartRange,
+  findPercentageToStop,
+  render,
+  fakeAPI,
+} from "./Helpers";
 
 const LivingTicket = () => {
   const wrapper = {
@@ -41,7 +46,18 @@ const LivingTicket = () => {
   const fps = 60 / 30;
 
   const canvas = useRef(null);
-  const stopTime = 33;
+  const stopTime = 330;
+
+  useEffect(() => {
+    async function getSessionInfo() {
+      let response = await fakeAPI();
+
+      console.log(response);
+    }
+    console.log("running on mount");
+    getSessionInfo();
+  }, []);
+
   useEffect(() => {
     const ctx = canvas.current.getContext("2d");
     let interval = setInterval(() => {
