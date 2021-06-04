@@ -125,7 +125,7 @@ const LivingTicket = () => {
     ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transforms
   };
   const canvas = useRef(null);
-  const stopTime = 520;
+  const stopTime = 229;
   useEffect(() => {
     const ctx = canvas.current.getContext("2d");
     let interval = setInterval(() => {
@@ -152,7 +152,7 @@ const LivingTicket = () => {
   }, [percentage.value]);
 
   return (
-    <div style={wrapper}>
+    <div>
       <canvas ref={canvas} height="450" />
     </div>
   );
