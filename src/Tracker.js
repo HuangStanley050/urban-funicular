@@ -51,7 +51,7 @@ const Tracker = () => {
     let eventTimes;
     let timeData;
     let stopPercentage;
-    let timeNow = new Date("2021/06/04 11:27");
+    let timeNow = new Date("2021/06/04 08:58");
     async function getSessionInfo() {
       let response = await fakeAPI();
 
@@ -61,6 +61,8 @@ const Tracker = () => {
     eventTimes = await getSessionInfo();
     //console.log(eventTimes);
     timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
+    console.log(`timeData ${timeData}`);
+    console.log(timeData);
     stopPercentage = findPercentageToStop(timeNow, timeData);
     //console.log(stopPercentage);
     stopTimeRef.current = stopPercentage;

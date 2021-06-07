@@ -22,7 +22,7 @@ export const getStartRange = (eventTimes, currentTime, sectionDegrees) => {
   // get which section we should start from
 
   const { cinemaOpen, preShow, movieStart, movieEnd } = eventTimes;
-  const beforeCinemaOpen = new Date(eventTimes.cinemaOpen.getTime());
+  const beforeCinemaOpen = new Date(eventTimes.movieStart.getTime());
   beforeCinemaOpen.setHours(beforeCinemaOpen.getHours() - 2); //assume time before cinema open is 2 hours before
 
   if (currentTime < cinemaOpen)
