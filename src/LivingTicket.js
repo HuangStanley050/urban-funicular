@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PreLivingTicketTracker from "./PreLivingTicketTracker";
 import {
   getStartRange,
   findPercentageToStop,
@@ -50,13 +51,13 @@ const LivingTicket = () => {
     let eventTimes;
     let timeData;
     let stopPercentage;
-    let timeNow = new Date("2021/06/04 10:47");
+    let timeNow = new Date("2021/06/04 11:27");
     async function getSessionInfo() {
       let response = await fakeAPI();
 
       return response;
     }
-    console.log("running on mount");
+    //console.log("running on mount");
     eventTimes = await getSessionInfo();
     //console.log(eventTimes);
     timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
@@ -93,6 +94,10 @@ const LivingTicket = () => {
   return (
     <div>
       <canvas ref={canvas} height="450" />
+      <PreLivingTicketTracker
+        movieTitle={"Fast and Furious 9"}
+        timeBeforeMovieStart={"2 days and 5 hours"}
+      />
     </div>
   );
 };
