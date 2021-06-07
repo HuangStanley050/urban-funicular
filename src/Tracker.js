@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import PreLivingTicketTracker from "./PreLivingTicketTracker";
+
 import {
   getStartRange,
   findPercentageToStop,
@@ -8,7 +8,7 @@ import {
   sectionDegrees,
 } from "./Helpers";
 
-const LivingTicket = () => {
+const Tracker = () => {
   const timeSlots = {
     startTime: 0.0,
     endTime: 600,
@@ -94,12 +94,8 @@ const LivingTicket = () => {
   return (
     <div>
       <canvas ref={canvas} height="450" />
-      <PreLivingTicketTracker
-        movieTitle={"Fast and Furious 9"}
-        timeBeforeMovieStart={"2 days and 5 hours"}
-      />
     </div>
   );
 };
 
-export default LivingTicket;
+export default Tracker;
