@@ -1,4 +1,4 @@
-const sectionDegrees = {
+export const sectionDegrees = {
   beforeCinema: { label: "before cinema", start: 0, end: 70, range: 70 },
   cinemaOpen: { label: "cinema opens", start: 70, end: 150, range: 80 },
   preshow: { label: "preshow starts", start: 150, end: 300, range: 150 },
@@ -55,7 +55,7 @@ let timeNow = new Date("2021/06/04 10:57");
 
 let timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
 
-//console.log(timeData);
+console.log(timeData);
 
 export const findPercentageToStop = (timeNow, timeData) => {
   const lapsed = Math.floor(

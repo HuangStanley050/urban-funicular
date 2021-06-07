@@ -4,12 +4,10 @@ import {
   findPercentageToStop,
   render,
   fakeAPI,
+  sectionDegrees,
 } from "./Helpers";
 
 const LivingTicket = () => {
-  const wrapper = {
-    border: "1px red solid",
-  };
   const timeSlots = {
     startTime: 0.0,
     endTime: 600,
@@ -46,24 +44,31 @@ const LivingTicket = () => {
   const fps = 60 / 30;
 
   const canvas = useRef(null);
-  const testRef = useRef(0);
-  const stopTime = 330;
+  const stopTimeRef = useRef(0);
 
-  useEffect(() => {
+  useEffect(async () => {
+    let eventTimes;
+    let timeData;
+    let stopPercentage;
+    let timeNow = new Date("2021/06/04 10:47");
     async function getSessionInfo() {
       let response = await fakeAPI();
 
-      console.log(response);
+      return response;
     }
     console.log("running on mount");
-    getSessionInfo();
-    testRef.current = 300;
+    eventTimes = await getSessionInfo();
+    //console.log(eventTimes);
+    timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
+    stopPercentage = findPercentageToStop(timeNow, timeData);
+    //console.log(stopPercentage);
+    stopTimeRef.current = stopPercentage;
   }, []);
 
   useEffect(() => {
     const ctx = canvas.current.getContext("2d");
     let interval = setInterval(() => {
-      if (percentage.value < stopTime) {
+      if (percentage.value < stopTimeRef.current) {
         // this condition above is the key to stop the animation
         // 70 is when cinema opens
         // 150 is when pre show starts
