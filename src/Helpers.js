@@ -24,7 +24,8 @@ export const getStartRange = (eventTimes, currentTime, sectionDegrees) => {
   const { cinemaOpen, preShow, movieStart, movieEnd } = eventTimes;
   const beforeCinemaOpen = new Date(eventTimes.movieStart.getTime());
   beforeCinemaOpen.setHours(beforeCinemaOpen.getHours() - 2); //assume time before cinema open is 2 hours before
-
+  console.log("in get start range");
+  console.log(beforeCinemaOpen);
   if (currentTime < cinemaOpen)
     return {
       ...sectionDegrees.beforeCinema,
@@ -51,11 +52,11 @@ export const getStartRange = (eventTimes, currentTime, sectionDegrees) => {
   };
 };
 
-let timeNow = new Date("2021/06/04 10:57");
-
-let timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
-
-console.log(timeData);
+// let timeNow = new Date("2021/06/04 10:57");
+//
+// let timeData = getStartRange(eventTimes, timeNow, sectionDegrees);
+//
+// console.log(timeData);
 
 export const findPercentageToStop = (timeNow, timeData) => {
   const lapsed = Math.floor(
@@ -81,8 +82,8 @@ export const findPercentageToStop = (timeNow, timeData) => {
   //   return (startRange.range + result).toFixed(0);
 };
 
-let test = findPercentageToStop(timeNow, timeData);
-console.log(test);
+//let test = findPercentageToStop(timeNow, timeData);
+// console.log(test);
 // 1000 ----> cinema opens
 // 1030 ----> preshow starts
 // 1010 ----> time NOW
