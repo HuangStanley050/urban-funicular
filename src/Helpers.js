@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const sectionDegrees = {
   beforeCinema: { label: "before cinema", start: 0, end: 70, range: 70 },
   cinemaOpen: { label: "cinema opens", start: 70, end: 150, range: 80 },
