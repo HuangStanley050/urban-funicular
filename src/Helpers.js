@@ -127,7 +127,7 @@ export const render = (ctx, percentage, timeSlots) => {
   const radius = 140;
   const circum = 2 * Math.PI * radius;
   const lineWidth = 12;
-  const gap = 0;
+  const gap = 0.1;
   const START_RADIAN = parseFloat(-0.2);
   const END_RADIAN = parseFloat(1.2);
 
@@ -170,9 +170,21 @@ export const render = (ctx, percentage, timeSlots) => {
       );
       //console.log(`end section: ${value.eventName}`, sectionEndNorm);
       if (progress >= sectionEndNorm) {
-        ctx.arc(0, 0, radius, Math.PI * startSection, Math.PI * sectionEndNorm);
+        ctx.arc(
+          0,
+          0,
+          radius,
+          Math.PI * startSection + gap,
+          Math.PI * sectionEndNorm
+        );
       } else {
-        ctx.arc(0, 0, radius, Math.PI * startSection, Math.PI * progress);
+        ctx.arc(
+          0,
+          0,
+          radius,
+          Math.PI * startSection + gap,
+          Math.PI * progress + gap
+        );
       }
       ctx.strokeStyle = value.color;
       ctx.stroke();

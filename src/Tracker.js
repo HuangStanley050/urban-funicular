@@ -51,7 +51,7 @@ const Tracker = () => {
     let eventTimes;
     let timeData;
     let stopPercentage;
-    let timeNow = new Date("2021/06/04 10:00");
+    let timeNow = new Date("2021/06/04 10:38");
     async function getSessionInfo() {
       let response = await fakeAPI();
 
